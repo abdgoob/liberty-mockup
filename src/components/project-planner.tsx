@@ -26,10 +26,10 @@ import {
 import { cn } from "@/lib/utils";
 
 const projectValues = [
-  "landscape design",
-  "patios hardscaping",
-  "outdoor living",
-  "garden care",
+  "landscape-design",
+  "patios-hardscaping",
+  "outdoor-living",
+  "garden-care",
 ] as const;
 
 const formSchema = z.object({
