@@ -1,26 +1,297 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f2e8;
+  --foreground: #1d2922;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest: #163226;
+  --color-forest-deep: #0d241b;
+  --color-cream: #f6f2e8;
+  --color-ink: #1d2922;
+  --color-stone-100: #eee9df;
+  --color-sage-100: #e4eadf;
+  --color-sage-200: #cbd6c4;
+  --color-sage-300: #a6b8a1;
+  --color-brass: #d7b56d;
+  --color-brass-dark: #9a763b;
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-orcish);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-orcish), Georgia, serif;
+  text-align: center;
+}
+
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+::selection {
+  background: #d7b56d;
+  color: #0d241b;
+}
+
+:focus-visible {
+  outline: 2px solid #d7b56d;
+  outline-offset: 3px;
+}
+
+@layer components {
+  .site-container {
+    width: min(100% - 2rem, 82rem);
+    margin-inline: auto;
+  }
+
+  .section-pad {
+    padding-block: 5rem;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #163226 68%, transparent);
+  }
+
+  .eyebrow::before {
+    width: 2rem;
+    height: 1px;
+    content: "";
+    background: #9a763b;
+  }
+
+  .section-title {
+    font-family: var(--font-orcish), Georgia, serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .form-title {
+    max-width: 38rem;
+    font-family: var(--font-orcish), Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #163226;
+    outline: none;
+  }
+
+  .form-help {
+    margin-top: 0.65rem;
+    color: color-mix(in srgb, #1d2922 58%, transparent);
+    line-height: 1.65;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 650;
+    color: #1d2922;
+  }
+
+  .field-input {
+    width: 100%;
+    min-height: 3.25rem;
+    margin-top: 0.5rem;
+    border: 1px solid color-mix(in srgb, #163226 17%, transparent);
+    border-radius: 0.85rem;
+    background: #fbfaf6;
+    padding: 0.8rem 0.95rem;
+    color: #1d2922;
+    font-size: 1rem;
+    font-weight: 450;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+  }
+
+  .field-input:focus {
+    border-color: #9a763b;
+    background: white;
+    box-shadow: 0 0 0 3px color-mix(in srgb, #d7b56d 22%, transparent);
+  }
+
+  .button-primary,
+  .button-secondary,
+  .button-gold,
+  .button-dark {
+    display: inline-flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .button-primary {
+    background: #163226;
+    padding-inline: 1.5rem;
+    color: white;
+  }
+
+  .button-secondary {
+    border: 1px solid color-mix(in srgb, #163226 18%, transparent);
+    background: white;
+    padding-inline: 1.5rem;
+    color: #163226;
+  }
+
+  .button-gold {
+    background: #d7b56d;
+    padding-inline: 1.4rem;
+    color: #0d241b;
+  }
+
+  .button-dark {
+    background: #163226;
+    padding-inline: 1.6rem;
+    color: white;
+  }
+
+  .button-primary:hover,
+  .button-gold:hover,
+  .button-dark:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-primary:hover,
+  .button-dark:hover {
+    background: #0d241b;
+  }
+
+  .button-secondary:hover {
+    background: #f6f2e8;
+  }
+
+  .button-gold:hover {
+    background: #e5c984;
+  }
+
+  .footer-heading {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, white 40%, transparent);
+  }
+}
+
+@media (min-width: 640px) {
+  @layer components {
+    .site-container {
+      width: min(100% - 3rem, 82rem);
+    }
+
+    .section-pad {
+      padding-block: 7rem;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  @layer components {
+    .site-container {
+      width: min(100% - 5rem, 82rem);
+    }
+
+    .section-pad {
+      padding-block: 9rem;
+    }
+  }
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(-100%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+  }
+}
+
+.animate-star-movement-bottom,
+.animate-star-movement-top {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  will-change: transform, opacity;
+}
+
+.animate-star-movement-bottom {
+  animation-name: star-movement-bottom;
+}
+
+.animate-star-movement-top {
+  animation-name: star-movement-top;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
