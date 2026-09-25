@@ -24,6 +24,7 @@ import {
   type QualificationAnswers,
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import BounceCards from "@/components/bounce-cards";
 
 const projectValues = [
   "landscape-design",
@@ -181,30 +182,35 @@ export default function ProjectPlanner() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+          <BounceCards
+            className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4"
+            animationDelay={2}
+            animationStagger={0.3}
+            easeType="elastic.out(1, 0.5)"
+            enableHover
+          >
             {projectOptions.map((option, index) => {
               const Icon = option.icon;
               const selected = values.projectType === option.value;
+              const isDark = index % 2 === 0;
               return (
-                <motion.button
+                <button
                   key={option.value}
                   type="button"
+                  aria-pressed={selected}
                   onClick={() => chooseProject(option.value, true)}
-                  initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.06 }}
                   className={cn(
-                    "group flex min-h-72 flex-col rounded-[1.75rem] border p-6 text-left outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-4 sm:min-h-80",
-                    selected
-                      ? "border-forest bg-forest text-white shadow-[0_24px_60px_rgba(22,50,38,0.18)]"
-                      : "border-forest/12 bg-white text-ink hover:-translate-y-1 hover:border-forest/25 hover:shadow-[0_20px_50px_rgba(22,50,38,0.1)]",
+                    "group flex min-h-72 h-full w-full flex-col rounded-[1.75rem] border p-6 text-left outline-none transition-[border-color,background-color,box-shadow] duration-300 focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-4 sm:min-h-80",
+                    isDark
+                      ? "border-forest bg-forest text-white shadow-[0_24px_60px_rgba(22,50,38,0.15)] hover:border-brass/70"
+                      : "border-forest/12 bg-white text-ink hover:border-forest/25 hover:shadow-[0_20px_50px_rgba(22,50,38,0.1)]",
+                    selected && "ring-2 ring-brass ring-offset-2 ring-offset-cream",
                   )}
                 >
                   <span
                     className={cn(
                       "grid size-12 place-items-center rounded-full",
-                      selected ? "bg-white/12 text-brass" : "bg-sage-100 text-forest",
+                      isDark ? "bg-white/12 text-brass" : "bg-sage-100 text-forest",
                     )}
                   >
                     <Icon className="size-5" strokeWidth={1.6} />
@@ -219,7 +225,7 @@ export default function ProjectPlanner() {
                     <span
                       className={cn(
                         "mt-4 block text-sm leading-6",
-                        selected ? "text-white/65" : "text-ink/58",
+                        isDark ? "text-white/65" : "text-ink/58",
                       )}
                     >
                       {option.description}
@@ -228,10 +234,10 @@ export default function ProjectPlanner() {
                       Tell us more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </span>
-                </motion.button>
+                </button>
               );
             })}
-          </div>
+          </BounceCards>
         </div>
       </section>
 
